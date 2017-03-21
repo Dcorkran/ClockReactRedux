@@ -56,7 +56,7 @@ class LoginPage extends React.Component {
     submitForm(){
       // console.log(this.state);
       // this.props.attemptLogin(this.state.form)
-      fetch('https://mywebsite.com/endpoint/', {
+      fetch('http://localhost.com/endpoint/', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -83,10 +83,16 @@ class LoginPage extends React.Component {
             <View style={styles.iconContainer}>
                 <Animated.Image
                 style={[styles.image, animatedStyle]}
-                source={require('../assets/icon.jpg')}
+                source={require('../assets/icon4.png')}
               ></Animated.Image>
             </View>
             <View style={styles.buttonContainer}>
+              <Text
+                style={styles.text}
+                >
+                Welcome to Clock</Text>
+            </View>
+              <View style={styles.buttonContainer}>
               <Button
                 disabled
                 onPress={this.navSecond.bind(this)}
@@ -110,6 +116,8 @@ class LoginPage extends React.Component {
                   this.setState({form:form}
                   )}}
                 name={'email'}
+                inputStyle={styles.text}
+                labelStyle={{ color: '#E3F2FD' }}
                 style={styles.input}
                 label={'Email'}
                 borderColor={'#b76c94'}
@@ -123,6 +131,8 @@ class LoginPage extends React.Component {
                   )}}
                 name={'password'}
                 secureTextEntry={true}
+                labelStyle={{ color: '#E3F2FD' }}
+                inputStyle={styles.text}
                 style={styles.input}
                 label={'Password'}
                 borderColor={'#7ac1ba'}
@@ -148,7 +158,7 @@ styles = StyleSheet.create({
     alignItems: 'center',
     marginLeft:20,
     marginRight:20,
-    marginTop: 20
+    marginTop: 10
   },
   buttonContainer:{
     flexDirection: 'row',
@@ -180,12 +190,13 @@ styles = StyleSheet.create({
     fontWeight: 'bold',
     opacity: 0.8,
   },
-    input: {
+  input: {
     marginTop: 4,
   },
-  // text: {
-  //   textAlign: 'center'
-  // },
+  text: {
+    color: 'white',
+    fontSize:20
+  },
   // buttonText: {
   //   color: 'white'
   // }
