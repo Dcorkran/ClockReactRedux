@@ -94,7 +94,6 @@ class LoginPage extends React.Component {
             </View>
               <View style={styles.buttonContainer}>
               <Button
-                disabled
                 onPress={this.navSecond.bind(this)}
                 style={styles.button}
                 raised
@@ -116,7 +115,7 @@ class LoginPage extends React.Component {
                   this.setState({form:form}
                   )}}
                 name={'email'}
-                inputStyle={styles.text}
+                inputStyle={styles.formText}
                 labelStyle={{ color: '#E3F2FD' }}
                 style={styles.input}
                 label={'Email'}
@@ -132,7 +131,7 @@ class LoginPage extends React.Component {
                 name={'password'}
                 secureTextEntry={true}
                 labelStyle={{ color: '#E3F2FD' }}
-                inputStyle={styles.text}
+                inputStyle={styles.formText}
                 style={styles.input}
                 label={'Password'}
                 borderColor={'#7ac1ba'}
@@ -169,7 +168,9 @@ styles = StyleSheet.create({
     flex:.75
   },
   formContainer:{
-    flex:2
+    flex:2,
+    marginRight:20,
+    marginLeft:20
   },
   button:{
     width:150,
@@ -181,6 +182,10 @@ styles = StyleSheet.create({
   },
   card2: {
     padding: 26,
+  },
+  formText:{
+    color: 'white',
+    fontSize:15
   },
   title: {
     paddingBottom: 16,

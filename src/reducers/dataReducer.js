@@ -4,11 +4,12 @@ const initialState = {
   dataFetched: false,
   isFetching: false,
   error: false,
-  form: {}
+  form: {},
+  token:{},
+  isLoggedIn:false
 }
 
 export default function dataReducer (state = initialState, action) {
-  debugger;
   switch (action.type) {
     case ATTEMPT_LOGIN:
       return Object.assign({},state,{

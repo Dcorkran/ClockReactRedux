@@ -29,7 +29,10 @@ export default class MyDatePicker extends Component {
           }
         }}
         minuteInterval={10}
-        onDateChange={(datetime) => {this.setState({datetime});}}
+        onDateChange={(datetime) => {
+          console.log(datetime);
+          this.setState({datetime});
+        }}
       />
       <Text style={styles.instructions}>datetime: {this.state.datetime}</Text>
       </View>
