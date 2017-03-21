@@ -1,56 +1,134 @@
 import React from 'react';
-import { TouchableHighlight, View, Text, StyleSheet, Image, Button } from 'react-native'
+import { TouchableHighlight, View, Text, StyleSheet, Image, Animated, Easing} from 'react-native'
 import { connect } from 'react-redux'
-import { fetchData } from '../actions/actions'
+import * as appActions from '../actions/actions'
+import {
+  Button
+} from 'react-native-elements'
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import {
+  Hoshi
+} from 'react-native-textinput-effects';
 
 
 class LoginPage extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+
+    this.state = {
+      form: {email:"a",password:""}
+    };
+
+    this.changeInputField = this.changeInputField.bind(this);
+    this.submitForm = this.submitForm.bind(this);
+
+  }
+    changeInputField(event){
+      const form = this.state.form;
+      form.email = event.target.value;
+      this.setState({form : form})
+      console.log(this.state);
+    }
     componentWillMount(){
+      this.animation = new Animated.Value(0);
+    }
+    componentDidMount(){
       console.log(this.props);
+      console.log(this.state);
+      this.runAnimation();
+    }
+    runAnimation(){
+      Animated.timing(this.animation, {
+        delay: 5000,
+        duration: 400,
+        toValue: 3,
+        ease: Easing.bounce
+      }).start(() => {
+        this.animation.setValue(0);
+        this.runAnimation()
+      })
     }
     navSecond(){
       this.props.navigator.push(
         {title: 'SetAlarmScreen', index: 1}
       )
     }
+    submitForm(){
+      // console.log(this.state);
+      // this.props.attemptLogin(this.state.form)
+      fetch('https://mywebsite.com/endpoint/', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          firstParam: 'yourValue',
+          secondParam: 'yourOtherValue',
+        })
+      })
+    }
     render() {
+        const interpolated = this.animation.interpolate({
+          inputRange:[0, .5, 1, 1.5, 2, 2.5, 3],
+          outputRange: [0, -10, 0, 10, 0, -10, 0]
+        })
+        const animatedStyle = {
+          transform: [
+            { translateX: interpolated}
+          ]
+        }
         return (
-          <View style={styles.container}>
+          <Image source={require('../assets/bg.png')} style={styles.container}>
             <View style={styles.iconContainer}>
-                <Image
-                style={styles.image}
+                <Animated.Image
+                style={[styles.image, animatedStyle]}
                 source={require('../assets/icon.jpg')}
-              />
+              ></Animated.Image>
             </View>
             <View style={styles.buttonContainer}>
               <Button
-                style={styles.button}
+                disabled
                 onPress={this.navSecond.bind(this)}
-                title="     Sign In     "
-                accessibilityLabel="See an informative alert"
-              />
+                style={styles.button}
+                raised
+                icon={{name: 'person'}}
+                title='Sign In' />
               <Button
+                onPress={this.submitForm}
                 style={styles.button}
-                onPress={this.navSecond.bind(this)}
-                title="     Sign Up     "
-                accessibilityLabel="See an informative alert"
-              />
+                raised
+                icon={{name: 'person-add'}}
+                title='Sign Up' />
             </View>
             <View style={styles.formContainer}>
-              <Button
-                style={styles.button}
-                onPress={this.navSecond.bind(this)}
-                title="Press Meeeee"
-                accessibilityLabel="See an informative alert"
+              <Hoshi
+                onChangeText={(text) => {
+                  console.log(this.state);
+                  const form = this.state.form;
+                  form.email = text;
+                  this.setState({form:form}
+                  )}}
+                name={'email'}
+                style={styles.input}
+                label={'Email'}
+                borderColor={'#b76c94'}
               />
-              <Button
-                style={styles.button}
-                onPress={this.navSecond.bind(this)}
-                title="Press Meeeeee"
-                accessibilityLabel="See an informative alert"
+              <Hoshi
+                onChangeText={(text) => {
+                  console.log(this.state);
+                  const form = this.state.form;
+                  form.password = text;
+                  this.setState({form:form}
+                  )}}
+                name={'password'}
+                secureTextEntry={true}
+                style={styles.input}
+                label={'Password'}
+                borderColor={'#7ac1ba'}
               />
             </View>
-          </View>
+          </Image>
         );
     }
 }
@@ -60,7 +138,9 @@ styles = StyleSheet.create({
     flex:1,
     // justifyContent: 'center',
     // alignItems: 'center',
-    backgroundColor: '#F5FCFF'
+    backgroundColor: '#BBDEFB',
+    width:null,
+    height:null
   },
   iconContainer:{
     flex:2,
@@ -74,33 +154,41 @@ styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    marginLeft:20,
-    marginRight:20,
+    // marginLeft:20,
+    // marginRight:30,
     flex:.75
   },
   formContainer:{
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    marginLeft:20,
-    marginRight:20,
     flex:2
   },
   button:{
-    width:300,
-    height:400
+    width:150,
   },
   image:{
     // flex : 2,
     height:200,
     width:200
   },
-  text: {
-    textAlign: 'center'
+  card2: {
+    padding: 26,
   },
-  buttonText: {
-    color: 'white'
-  }
+  title: {
+    paddingBottom: 16,
+    textAlign: 'center',
+    color: '#404d5b',
+    fontSize: 20,
+    fontWeight: 'bold',
+    opacity: 0.8,
+  },
+    input: {
+    marginTop: 4,
+  },
+  // text: {
+  //   textAlign: 'center'
+  // },
+  // buttonText: {
+  //   color: 'white'
+  // }
 })
 
 function mapStateToProps (state) {
@@ -111,7 +199,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    fetchData: () => dispatch(fetchData())
+    attemptLogin: (form) => dispatch(appActions.attemptLogin(form))
   }
 }
 

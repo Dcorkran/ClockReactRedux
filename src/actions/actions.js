@@ -1,8 +1,10 @@
-import { FETCHING_DATA, FETCHING_DATA_SUCCESS, FETCHING_DATA_FAILURE } from '../assets/constants'
+import { ATTEMPT_LOGIN, FETCHING_DATA_SUCCESS, FETCHING_DATA_FAILURE } from '../assets/constants'
 
-export function getData() {
+export function attemptLogin(form) {
+  console.log('hit');
   return {
-    type: FETCHING_DATA
+    type: ATTEMPT_LOGIN,
+    form
   }
 }
 
