@@ -14,20 +14,28 @@ import {
 class LoginPage extends React.Component {
   constructor(props, context) {
     super(props, context);
+    console.log(props);
 
     this.state = {
-      form: {email:"a",password:""}
+      form: {email:"",password:""},
     };
 
     this.changeInputField = this.changeInputField.bind(this);
     this.submitForm = this.submitForm.bind(this);
 
   }
+    componentDidUpdate() {
+       if(this.props.appData.isLoggedIn) {
+         this.props.navigator.push(
+           {title: 'DatePicker', index: 1}
+         )
+       }
+    }
     changeInputField(event){
       const form = this.state.form;
       form.email = event.target.value;
       this.setState({form : form})
-      console.log(this.state);
+      // console.log(this.state);
     }
     componentWillMount(){
       this.animation = new Animated.Value(0);
@@ -55,18 +63,8 @@ class LoginPage extends React.Component {
     }
     submitForm(){
       // console.log(this.state);
-      // this.props.attemptLogin(this.state.form)
-      fetch('http://localhost.com/endpoint/', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          firstParam: 'yourValue',
-          secondParam: 'yourOtherValue',
-        })
-      })
+      this.props.attemptLogin(this.state.form)
+
     }
     render() {
         const interpolated = this.animation.interpolate({
@@ -79,7 +77,9 @@ class LoginPage extends React.Component {
           ]
         }
         return (
-          <Image source={require('../assets/bg.png')} style={styles.container}>
+          <Image
+            source={require('../assets/bg.png')} 
+            style={styles.container}>
             <View style={styles.iconContainer}>
                 <Animated.Image
                 style={[styles.image, animatedStyle]}
@@ -109,7 +109,7 @@ class LoginPage extends React.Component {
             <View style={styles.formContainer}>
               <Hoshi
                 onChangeText={(text) => {
-                  console.log(this.state);
+                  // console.log(this.state);
                   const form = this.state.form;
                   form.email = text;
                   this.setState({form:form}
@@ -208,6 +208,7 @@ styles = StyleSheet.create({
 })
 
 function mapStateToProps (state) {
+  console.log(state);
   return {
     appData: state.appData
   }

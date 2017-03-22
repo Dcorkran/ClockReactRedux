@@ -2,17 +2,20 @@ import React from 'react';
 import { TouchableHighlight, View, Text, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { fetchData } from '../actions/actions'
-import DatePicker from '../components/datePicker'
+// import DatePicker from '../components/datePicker'
 
 
 class SetAlarmScreen extends React.Component {
     componentWillMount(){
-      // console.log(this.state);
+      console.log(this.state);
     }
 
     render() {
         return (
-          <DatePicker/>
+
+          <View>
+            <Text>Hi</Text>
+          </View>
         );
     }
 }
