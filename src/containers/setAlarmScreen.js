@@ -5,6 +5,7 @@ import { fetchData } from '../actions/actions'
 // import DatePicker from '../components/datePicker'
 
 
+
 class SetAlarmScreen extends React.Component {
     componentWillMount(){
       console.log(this.state);

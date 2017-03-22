@@ -20,15 +20,16 @@ class Api {
     })
   }
   static updateAlarm(data){
-    return fetch('http://10.0.2.2:3000/clock', {
+    console.log(data);
+    return fetch('http://10.0.2.2:3000/clocks', {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        email: form.email,
-        password: form.password,
+        id: data.id,
+        alarm: data.alarm,
       })
     }).then((user)=>{
       // console.log(user.json());

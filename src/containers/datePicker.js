@@ -5,19 +5,33 @@ import {
   Button
 } from 'react-native-elements';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import { connect } from 'react-redux';
+import * as appActions from '../actions/actions';
 
 
 
-export default class MyDatePicker extends Component {
+
+
+class MyDatePicker extends Component {
   constructor(props){
     super(props)
     this.state = {};
+    this.submitDateForm = this.submitDateForm.bind(this);
   }
   componentWillMount(){
     this.animation = new Animated.Value(0);
   }
   componentDidMount(){
+    console.log(this.props.appData);
     this.runAnimation();
+  }
+  componentDidUpdate() {
+
+     if(this.props.appData.alarmSet) {
+       this.props.navigator.push(
+         {title: 'AlarmActive', index: 1}
+       )
+     }
   }
   runAnimation(){
     Animated.timing(this.animation, {
@@ -28,6 +42,15 @@ export default class MyDatePicker extends Component {
       this.animation.setValue(0);
       this.runAnimation()
     })
+  }
+  submitDateForm(){
+    console.log(this.state,this.props);
+    form = {
+      id: this.props.appData.user.id,
+      alarm:this.state.datetime
+    }
+    this.props.attemptDateFormSubmit(form)
+
   }
   render(){
     const interpolated = this.animation.interpolate({
@@ -68,7 +91,7 @@ export default class MyDatePicker extends Component {
             style={{width: 200,marginRight:20}}
             date={this.state.datetime}
             mode="datetime"
-            format="MMM DD YYYY hh:mm A"
+            format="DD MMM YYYY HH:mm"
             customStyles={{
               dateIcon: {
                 position: 'absolute',
@@ -87,6 +110,7 @@ export default class MyDatePicker extends Component {
         </View>
         <View style={styles.submitContainer}>
         <Button
+          onPress={this.submitDateForm}
           borderRadius={25}
           backgroundColor={'#80CBC4'}
           large
@@ -144,3 +168,23 @@ const styles = StyleSheet.create({
     marginTop:7
   }
 });
+
+function mapStateToProps (state) {
+  console.log(state);
+  return {
+    appData: state.appData
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    attemptDateFormSubmit: (form) => dispatch(appActions.attemptDateFormSubmit(form))
+  }
+}
+
+
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MyDatePicker)

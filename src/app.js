@@ -3,6 +3,8 @@ import { Navigator, View, TouchableHighlight, Text ,Image, StatusBar} from 'reac
 import Login from './containers/login';
 import SetAlarmScreen from './containers/setAlarmScreen';
 import DatePicker from './containers/datePicker';
+import AlarmActive from './containers/alarmActive';
+
 
 // import styles from '../styles/style.js'
 export default class Scene extends Component {
@@ -25,9 +27,11 @@ export default class Scene extends Component {
     switch (route.title) {
       case 'Login':
         // change back to Login
-        return (<DatePicker navigator={navigator} title={route.title}/>);
+        return (<Login navigator={navigator} title={route.title}/>);
       case 'DatePicker':
         return (<DatePicker navigator={navigator} title={route.title} />);
+      case 'AlarmActive':
+        return (<AlarmActive navigator={navigator} title={route.title} />)
     }
   }
 }

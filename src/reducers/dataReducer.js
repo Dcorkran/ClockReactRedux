@@ -1,4 +1,4 @@
-import { ATTEMPT_LOGIN,ATTEMPT_LOGIN_SUCCESS, FETCHING_DATA_SUCCESS, FETCHING_DATA_FAILURE } from '../assets/constants'
+import { ATTEMPT_LOGIN, ATTEMPT_LOGIN_SUCCESS, ATTEMPT_DATE_FORM_SUCCESS, FETCHING_DATA_SUCCESS, FETCHING_DATA_FAILURE } from '../assets/constants'
 const initialState = {
   data: [],
   dataFetched: false,
@@ -7,7 +7,8 @@ const initialState = {
   form: {},
   token:{},
   user:{},
-  isLoggedIn:false
+  isLoggedIn:false,
+  alarmSet:false
 }
 
 export default function dataReducer (state = initialState, action) {
@@ -21,6 +22,11 @@ export default function dataReducer (state = initialState, action) {
         ...state,
         isLoggedIn: true,
         user: action.user
+      }
+    case ATTEMPT_DATE_FORM_SUCCESS:
+      return {
+        ...state,
+        alarmSet: true
       }
     case FETCHING_DATA_SUCCESS:
       return {
