@@ -8,7 +8,8 @@ const initialState = {
   token:{},
   user:{},
   isLoggedIn:false,
-  alarmSet:false
+  alarmSet:false,
+  alarmTime:''
 }
 
 export default function dataReducer (state = initialState, action) {
@@ -26,7 +27,8 @@ export default function dataReducer (state = initialState, action) {
     case ATTEMPT_DATE_FORM_SUCCESS:
       return {
         ...state,
-        alarmSet: true
+        alarmSet: true,
+        alarmTime: action.alarm
       }
     case FETCHING_DATA_SUCCESS:
       return {

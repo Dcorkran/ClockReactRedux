@@ -23,12 +23,12 @@ export function attemptLogin(form) {
   };
 }
 export function attemptDateFormSubmit(form) {
-  console.log('hit');
+  console.log(form);
   return function(dispatch) {
     // dispatch(beginAjaxCall());
     return Api.updateAlarm(form).then(data => {
       console.log(data);
-        dispatch(attemptDateFormSuccess());
+        dispatch(attemptDateFormSuccess(form.alarm));
         // dispatch(loadCoursesSuccess(user));
         console.log('cool');
 
@@ -58,6 +58,6 @@ export function attemptLoginSuccess(user) {
   return {type: ATTEMPT_LOGIN_SUCCESS, user}
 }
 
-export function attemptDateFormSuccess() {
-  return {type: ATTEMPT_DATE_FORM_SUCCESS}
+export function attemptDateFormSuccess(alarm) {
+  return {type: ATTEMPT_DATE_FORM_SUCCESS, alarm}
 }

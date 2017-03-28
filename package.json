@@ -9,6 +9,7 @@
   "dependencies": {
     "react": "~15.4.1",
     "react-native": "0.42.3",
+    "react-native-chart": "^1.0.8-beta",
     "react-native-datepicker": "^1.4.4",
     "react-native-elements": "^0.10.0",
     "react-native-textinput-effects": "^0.3.0",

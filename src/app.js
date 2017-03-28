@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import { Navigator, View, TouchableHighlight, Text ,Image, StatusBar} from 'react-native';
 import Login from './containers/login';
-import SetAlarmScreen from './containers/setAlarmScreen';
 import DatePicker from './containers/datePicker';
 import AlarmActive from './containers/alarmActive';
+import AlarmBeeping from './containers/alarmBeeping';
 
 
 // import styles from '../styles/style.js'
@@ -31,7 +31,9 @@ export default class Scene extends Component {
       case 'DatePicker':
         return (<DatePicker navigator={navigator} title={route.title} />);
       case 'AlarmActive':
-        return (<AlarmActive navigator={navigator} title={route.title} />)
+        return (<AlarmActive navigator={navigator} title={route.title} />);
+      case 'AlarmBeeping':
+        return (<AlarmBeeping navigator={navigator} title={route.title} />)
     }
   }
 }

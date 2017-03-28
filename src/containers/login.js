@@ -34,6 +34,7 @@ class LoginPage extends React.Component {
     changeInputField(event){
       const form = this.state.form;
       form.email = event.target.value;
+      console.log(this);
       this.setState({form : form})
       // console.log(this.state);
     }
@@ -78,7 +79,7 @@ class LoginPage extends React.Component {
         }
         return (
           <Image
-            source={require('../assets/bg.png')} 
+            source={require('../assets/bg.png')}
             style={styles.container}>
             <View style={styles.iconContainer}>
                 <Animated.Image
@@ -97,12 +98,16 @@ class LoginPage extends React.Component {
                 onPress={this.navSecond.bind(this)}
                 style={styles.button}
                 raised
+                borderRadius={25}
+                backgroundColor={'#0D47A1'}
                 icon={{name: 'person'}}
                 title='Sign In' />
               <Button
                 onPress={this.submitForm}
                 style={styles.button}
                 raised
+                borderRadius={25}
+                backgroundColor={'#0D47A1'}
                 icon={{name: 'person-add'}}
                 title='Sign Up' />
             </View>
@@ -136,6 +141,14 @@ class LoginPage extends React.Component {
                 label={'Password'}
                 borderColor={'#7ac1ba'}
               />
+          </View>
+            <View style={styles.buttonContainer}>
+              <Button
+                onPress={this.submitForm}
+                borderRadius={25}
+                backgroundColor={'#80CBC4'}
+                icon={{name: 'paper-plane', type: 'font-awesome'}}
+                title='Confirm' />
             </View>
           </Image>
         );
@@ -201,10 +214,7 @@ styles = StyleSheet.create({
   text: {
     color: 'white',
     fontSize:20
-  },
-  // buttonText: {
-  //   color: 'white'
-  // }
+  }
 })
 
 function mapStateToProps (state) {
